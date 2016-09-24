@@ -13,7 +13,7 @@
 /**
  * Returns an area of a rectangle given by width and heigth.
  *
- * @param {numder} width
+ * @param {number} width
  * @param {number} height
  * @return {number}
  *
@@ -22,7 +22,8 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    throw new Error('Not implemented');
+    return width * height;
+    //throw new Error('Not implemented');
 }
 
 
@@ -38,13 +39,14 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    throw new Error('Not implemented');
+    return 2 * Math.PI * radius;
+    //throw new Error('Not implemented');
 }
 
 /**
  * Returns an average of two given numbers.
  *
- * @param {numder} value1
+ * @param {number} value1
  * @param {number} value2
  * @return {number}
  *
@@ -54,7 +56,8 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 / 2 + value2 / 2;
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -73,7 +76,8 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+    return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -89,7 +93,8 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    throw new Error('Not implemented');
+    return (-b) / a;
+    //throw new Error('Not implemented');
 }
 
 
@@ -111,7 +116,10 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+    var a = Math.sqrt(x1 * x1 + y1 * y1);
+    var b = Math.sqrt(x2 * x2 + y2 * y2);
+    return Math.acos((x1 * x2 + y1 * y2) / (a * b));
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -127,7 +135,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    throw new Error('Not implemented');
+    return value % 10;
+    //throw new Error('Not implemented');
 }
 
 
@@ -143,7 +152,8 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    throw new Error('Not implemented');
+    return parseFloat(value);
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -159,8 +169,9 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(a,b,c) {
-    throw new Error('Not implemented');
+function getParallelipidedDiagonal(a, b, c) {
+    return Math.sqrt(a * a + b * b + c * c);
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -169,7 +180,7 @@ function getParallelipidedDiagonal(a,b,c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *  
+ *
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -181,7 +192,13 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    throw new Error('Not implemented');
+    for (var i = 0; i < pow; i++)
+        num /= 10;
+    num = Math.round(num);
+    for (i = 0; i < pow; i++)
+        num *= 10;
+    return num;
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -189,8 +206,8 @@ function roundToPowerOfTen(num, pow) {
  * See: https://en.wikipedia.org/wiki/Primality_test
  *
  * @param {number} n
- * @return {bool}
- * 
+ * @return {boolean}
+ *
  * @example:
  *   4 => false
  *   5 => true
@@ -202,7 +219,13 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    throw new Error('Not implemented');
+    if (n < 2) return false;
+    var q = Math.floor(Math.sqrt(n));
+    for (var i = 2; i <= q; i++)
+        if (n % i == 0)
+            return false;
+    return true;
+    //throw new Error('Not implemented');
 }
 
 /**
@@ -221,7 +244,9 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    throw new Error('Not implemented');
+    var num = Number(value);
+    return Number.isNaN(num) ? def : num;
+    //throw new Error('Not implemented');
 }
 
 module.exports = {
