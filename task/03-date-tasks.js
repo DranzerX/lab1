@@ -104,13 +104,10 @@ function timeSpanToString(startDate, endDate) {
 function angleBetweenClockHands(date) {
     var h = date.getUTCHours();
     var m = date.getUTCMinutes();
-    console.log(h);
-    console.log(m);
     if (h >= 12)
         h -= 12;
     h *= 5;
     var angle = Math.abs(h - m);
-    console.log(angle);
     if (angle > 30)
         angle -= 30;
     return Math.PI * (angle / 30);
