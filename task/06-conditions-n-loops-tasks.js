@@ -425,7 +425,37 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+
+    var difSec = /*Math.trunc*/((endDate - startDate) / 1000);
+    var difMin = /*Math.trunc*/((endDate - startDate) / (1000 * 60));
+    var difHour = /*Math.trunc*/((endDate - startDate) / (1000 * 60 * 60));
+    var difDay = /*Math.trunc*/((endDate - startDate) / (1000 * 60 * 60 * 24));
+    console.log(difSec);
+    console.log(difMin);
+    console.log(difHour);
+    console.log(difDay);
+    if (difDay > 546)
+        return difDay / 365 + ' years ago';
+    if (difDay > 345 && difDay <= 546)
+        return 'a year ago';
+    if (difDay > 45 && difDay <= 345)
+        return difDay / 30 + ' months ago';
+    if (difDay > 25 && difDay <= 45)
+        return 'a month ago';
+    if (difDay > 1 && difDay <= 25)
+        return difDay + ' days ago';
+    if (difHour > 22 && difDay <= 1)
+        return 'a day ago';
+    if (difHour > 1 && difHour <= 22)
+        return difHour + ' hours ago';
+    if (difMin > 45 && difHour <= 1)
+        return 'an hour ago';
+    if (difMin > 1.5 && difMin <= 45)
+        return difMin + ' minutes ago';
+    if (difSec > 45 && difMin <= 1.5)
+        return 'a minute ago';
+    return 'a few seconds ago';
+    //throw new Error('Not implemented');
 }
 
 
@@ -449,14 +479,15 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);
+    //throw new Error('Not implemented');
 }
 
 
 /**
  * Returns the commom directory path for specified array of full filenames.
  *
- * @param {array} pathes
+ * @param {Array} pathes
  * @return {string}
  *
  * @example:
@@ -466,6 +497,7 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
+
     throw new Error('Not implemented');
 }
 
@@ -474,9 +506,9 @@ function getCommonDirectoryPath(pathes) {
  * Returns the product of two specified matrixes.
  * See details: https://en.wikipedia.org/wiki/Matrix_multiplication
  *
- * @param {array} m1
- * @param {array} m2
- * @return {array}
+ * @param {Array} m1
+ * @param {Array} m2
+ * @return {Array}
  *
  * @example:
  *   [[ 1, 0, 0 ],       [[ 1, 2, 3 ],           [[ 1, 2, 3 ],
@@ -489,7 +521,20 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    var aNumRows = m1.length,
+        aNumCols = m1[0].length,
+        bNumCols = m2[0].length,
+        m = new Array(aNumRows);
+    for (var r = 0; r < aNumRows; ++r) {
+        m[r] = new Array(bNumCols);
+        for (var c = 0; c < bNumCols; ++c) {
+            m[r][c] = 0;
+            for (var i = 0; i < aNumCols; ++i)
+                m[r][c] += m1[r][i] * m2[i][c];
+        }
+    }
+    return m;
+    //throw new Error('Not implemented');
 }
 
 
@@ -501,7 +546,7 @@ function getMatrixProduct(m1, m2) {
  * Function should return who is winner in the current position according to the game rules.
  * The result can be: 'X','0',undefined
  *
- * @param {array} position
+ * @param {Array} position
  * @return {string}
  *
  * @example
@@ -524,7 +569,53 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    var cnt = 0;
+    for (var i = 0; i < 3; i++) {
+        cnt = 0;
+        for (var j = 0; j < 3; j++)
+            if (position[i][j] == 'X')
+                cnt++;
+            else if (position[i][j] == '0')
+                cnt--;
+        if (cnt == 3)
+            return 'X';
+        else if (cnt == -3)
+            return '0';
+    }
+    for (j = 0; j < 3; j++) {
+        cnt = 0;
+        for (i = 0; i < 3; i++)
+            if (position[i][j] == 'X')
+                cnt++;
+            else if (position[i][j] == '0')
+                cnt--;
+        if (cnt == 3)
+            return 'X';
+        else if (cnt == -3)
+            return '0';
+    }
+    cnt = 0;
+    for (i = 0; i < 3; i++)
+        if (position[i][i] == 'X')
+            cnt++;
+        else if (position[i][i] == '0')
+            cnt--;
+    if (cnt == 3)
+        return 'X';
+    else if (cnt == -3)
+        return '0';
+    cnt = 0;
+    for (i = 0; i < 3; i++)
+        if (position[i][2 - i] == 'X')
+            cnt++;
+        else if (position[i][2 - i] == '0')
+            cnt--;
+    if (cnt == 3)
+        return 'X';
+    else if (cnt == -3)
+        return '0';
+    return undefined;
+    //throw new Error('Not implemented');
 }
 
 
