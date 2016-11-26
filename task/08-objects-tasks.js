@@ -23,12 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    var rect = {width: width, height: height};
-    rect.getArea = function () {
-      return this.height*this.width;
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = ()=> {
+        return this.width * this.height;
     };
-    return rect;
-    //throw new Error('Not implemented');
+    return this;
 }
 
 
@@ -60,10 +60,10 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    /*var data = JSON.parse(json);
+    var data = JSON.parse(json);
     data.__proto__ = proto;
-    return data;*/
-    throw new Error('Not implemented');
+    return data;
+    //throw new Error('Not implemented');
 }
 
 

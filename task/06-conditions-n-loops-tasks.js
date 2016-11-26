@@ -426,35 +426,30 @@ function isBracketsBalanced(str) {
  */
 function timespanToHumanString(startDate, endDate) {
 
-    var difSec = /*Math.trunc*/((endDate - startDate) / 1000);
-    var difMin = /*Math.trunc*/((endDate - startDate) / (1000 * 60));
-    var difHour = /*Math.trunc*/((endDate - startDate) / (1000 * 60 * 60));
-    var difDay = /*Math.trunc*/((endDate - startDate) / (1000 * 60 * 60 * 24));
-    console.log(difSec);
-    console.log(difMin);
-    console.log(difHour);
-    console.log(difDay);
-    if (difDay > 546)
-        return difDay / 365 + ' years ago';
-    if (difDay > 345 && difDay <= 546)
-        return 'a year ago';
-    if (difDay > 45 && difDay <= 345)
-        return difDay / 30 + ' months ago';
-    if (difDay > 25 && difDay <= 45)
-        return 'a month ago';
-    if (difDay > 1 && difDay <= 25)
-        return difDay + ' days ago';
-    if (difHour > 22 && difDay <= 1)
-        return 'a day ago';
-    if (difHour > 1 && difHour <= 22)
-        return difHour + ' hours ago';
-    if (difMin > 45 && difHour <= 1)
-        return 'an hour ago';
-    if (difMin > 1.5 && difMin <= 45)
-        return difMin + ' minutes ago';
-    if (difSec > 45 && difMin <= 1.5)
-        return 'a minute ago';
-    return 'a few seconds ago';
+    var diff = endDate - startDate,
+        sec = 1000,
+        min = sec * 60,
+        hour = min * 60,
+        day = hour * 24,
+        month = day * 30,
+        year = day * 365;
+
+    var roundTime = (value) => {
+        if (value % 1 > 0.5) return Math.ceil(value);
+        return Math.floor(value);
+    };
+
+    if (diff <= sec * 45) return `a few seconds ago`;
+    if (diff <= sec * 90) return `a minute ago`;
+    if (diff <= min * 45) return `${roundTime(diff / min)} minutes ago`;
+    if (diff <= min * 90) return `an hour ago`;
+    if (diff <= hour * 22) return `${roundTime(diff / hour)} hours ago`;
+    if (diff <= hour * 36) return `a day ago`;
+    if (diff <= day * 25) return `${roundTime(diff / day)} days ago`;
+    if (diff <= day * 45) return `a month ago`;
+    if (diff <= day * 345) return `${roundTime(diff / month)} months ago`;
+    if (diff <= day * 545) return `a year ago`;
+    return `${roundTime(diff / year)} years ago`;
     //throw new Error('Not implemented');
 }
 
@@ -497,8 +492,24 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-
-    throw new Error('Not implemented');
+    var counter,
+        pattern = '',
+        arr = [];
+    for (var p in pathes)
+        arr.push(pathes[p].split('/'));
+    for (var i = 0; ; i++) {
+        counter = 0;
+        for (p in pathes)
+            if (pathes[p].includes(pattern))
+                counter++;
+        for (p in pathes)
+            if (pathes[p][0] !== '/')
+                return '';
+        if (counter !== pathes.length)
+            return pattern.replace(arr[0][i - 1] + '/', '');
+        pattern += arr[0][i] + '/';
+    }
+    //throw new Error('Not implemented');
 }
 
 
